@@ -14,6 +14,9 @@ window.renderStatistics = function (ctx, players, times) {
   var BAR_MAX = 150;
   var CLOUD_COLOR = 'white';
   var CLOUD_SHADOW_COLOR = 'rgba(0, 0, 0, 0.7)';
+  var TEXT_X = CLOUD_X + FONT_GAP;
+  var TEXT_WIDTH = FONT_GAP + TEXT_WIDTH;
+  var TEXT_Y = BAR_Y - LINE_GAP;
 
   var getMaxTime = function (time) {
     var maxTime = time[0];
@@ -41,19 +44,13 @@ window.renderStatistics = function (ctx, players, times) {
   var renderRect = function (players) {
     players.forEach(function callback(players[i], i, players) {
       //your iterator
-    }[, thisArg]);
-  }
+    }[players, players]);
+  };
 
   const players = ['Вы', 'Кекс', 'Катя', 'Игорь']
   const copy = []
 
-  // до
-  for (let i = 0; i < players.length; i++) {
-    copy.push(items[i])
-  }
-
-  // после
-  items.forEach(function (players) {
+  players.forEach(function (players) {
     copy.push(players)
   })
 
@@ -66,9 +63,14 @@ window.renderStatistics = function (ctx, players, times) {
     } else {
       ctx.fillStyle = 'hsl(233, 100%, ' + (Math.floor(Math.random() * 70) + 20) + '%)';
     }
-    ctx.fillText(Math.round(times[i]), CLOUD_X + FONT_GAP + (FONT_GAP + TEXT_WIDTH) * i, BAR_Y - LINE_GAP);
-    ctx.fillRect(CLOUD_X + FONT_GAP + (FONT_GAP + TEXT_WIDTH) * i, BAR_Y, BAR_WIDTH, BAR_HEIGHT);
+    ctx.fillText(Math.round(times[i]), TEXT_X + TEXT_WIDTH * i, TEXT_Y);
+    ctx.fillRect(TEXT_X + TEXT_WIDTH * i, BAR_Y, BAR_WIDTH, BAR_HEIGHT);
     ctx.fillStyle = 'black';
     ctx.fillText(players[i], CLOUD_X + FONT_GAP + (FONT_GAP + TEXT_WIDTH) * i, CLOUD_HEIGHT - LINE_GAP);
   }
+
+  var timeCount = maxTime; // Время, за которое игрок проходит игру
+  var result; // Сюда запишем результат сравнения времени, за которое игрок проходит игру, с максимальным временем
+
+  result = (timeCount < maxTime) ? 'Вы выиграли!' : 'Тренироваться и ещё раз тренироваться!';
 };
