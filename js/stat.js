@@ -12,8 +12,16 @@ window.renderStatistics = function (ctx, players, times) {
   var BAR_WIDTH = 40;
   var BAR_DOWN = CLOUD_Y - LINE_GAP + CLOUD_HEIGHT - LINE_GAP;
   var BAR_MAX = 150;
+  var CLOUD_COLOR = 'white';
+  var CLOUD_SHADOW_COLOR = 'rgba(0, 0, 0, 0.7)';
 
-  var renderCloud = function (context, x, y, color) {
+  var getMaxTime = function (time) {
+    var maxTime = time[0];
+    Math.max.apply(null, maxTime);
+    return Math.max(maxTime);
+  };
+
+  var renderCloud = function (x, y, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
   };
@@ -21,22 +29,33 @@ window.renderStatistics = function (ctx, players, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, 'white');
 
-  ctx.fillStyle = 'black';
-  ctx.font = '16px PT Mono';
-  ctx.textBaseline = 'hanging';
-  ctx.fillStyle = 'black';
-  ctx.fillText('Ура вы победили!', 135, 25);
-  ctx.fillText('Список результатов:', 135, 48);
+  var renderFont = function (font, color) {
+    ctx.fillStyle = 'black';
+    ctx.font = '16px PT Mono';
+    ctx.textBaseline = 'hanging';
+    ctx.fillStyle = 'black';
+    ctx.fillText('Ура вы победили!', 135, 25);
+    ctx.fillText('Список результатов:', 135, 48);
+  }
 
-  var getMaxTime = function (time) {
-    var maxTime = time[0];
-    for (var i = 1; i < time.length; i++) {
-      if (time[i] > maxTime) {
-        maxTime = time[i];
-      }
-    }
-    return maxTime;
-  };
+  var renderRect = function (players) {
+    players.forEach(function callback(players[i], i, players) {
+      //your iterator
+    }[, thisArg]);
+  }
+
+  const players = ['Вы', 'Кекс', 'Катя', 'Игорь']
+  const copy = []
+
+  // до
+  for (let i = 0; i < players.length; i++) {
+    copy.push(items[i])
+  }
+
+  // после
+  items.forEach(function (players) {
+    copy.push(players)
+  })
 
   for (var i = 0; i < players.length; i++) {
     var BAR_HEIGHT = Math.round((BAR_MAX * times[i]) / getMaxTime(times));
